@@ -9,12 +9,11 @@
 namespace stan {
 namespace math {
 /**
- * Check if the specified matrix is a valid
- * Cholesky factor.
+ * Check if the specified matrix is a valid Cholesky factor.
  *
  * A Cholesky factor is a lower triangular matrix whose diagonal
  * elements are all positive.  Note that Cholesky factors need not
- * be square, but require at least as many rows M as columns N
+ * be square, but requires at least as many rows M as columns N
  * (i.e., M &gt;= N).
  *
  * @tparam T_y Type of elements of Cholesky factor
