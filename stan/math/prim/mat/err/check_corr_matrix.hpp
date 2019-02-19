@@ -17,12 +17,10 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified matrix is a valid
- * correlation matrix.
+ * Check if the specified matrix is a valid correlation matrix.
  *
  * A valid correlation matrix is symmetric, has a unit diagonal
- * (all 1 values), and has all values between -1 and 1
- * (inclusive).
+ * (all 1 values), and has all values between -1 and 1 (inclusive).
  *
  * This function throws exceptions if the variable is not a valid
  * correlation matrix.
@@ -37,7 +35,7 @@ namespace math {
  *   or if the matrix is 0x0
  * @throw <code>std::domain_error</code> if the matrix is non-symmetric,
  *   diagonals not near 1, not positive definite, or any of the
- *   elements nan.
+ *   elements NaN
  */
 template <typename T_y>
 inline void check_corr_matrix(

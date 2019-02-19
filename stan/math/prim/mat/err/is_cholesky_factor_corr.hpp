@@ -2,7 +2,7 @@
 #define STAN_MATH_PRIM_MAT_ERR_IS_CHOLESKY_FACTOR_CORR_HPP
 
 #include <stan/math/prim/mat/fun/Eigen.hpp>
-#include <stan/math/prim/scal/err/is_pos.hpp>
+#include <stan/math/prim/scal/err/is_positive.hpp>
 #include <stan/math/prim/mat/err/is_lower_triangular.hpp>
 #include <stan/math/prim/mat/err/is_square.hpp>
 #include <stan/math/prim/mat/err/constraint_tolerance.hpp>
@@ -38,18 +38,18 @@ inline bool is_cholesky_factor_corr(
   if (is_square(y)) {
     if (is_lower_triangular(y)) {
       for (int i = 0; i < y.rows(); ++i) {
-        if (!is_pos(y(i, 1))
-            false;
+        if (!is_positive(y(i, 1))
+            return false;
       }
       for (int i = 0; i < y.rows(); ++i) {
         Eigen:Matrix<T_y, Dynamic, 1> y_i = y.row(i).transpose();
         if (!is_unit_vector(y_i))
-          false;
+          return false;
       }
-      true;
+      return true;
     }
   }
-  false;
+  return false;
 }
 
 } // namespace math

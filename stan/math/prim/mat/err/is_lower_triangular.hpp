@@ -23,8 +23,8 @@ namespace math {
 template <typename T_y>
 inline bool is_lower_triangular(
     const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
-  for (int n = 1; n < y.cols(); n++) {
-    for (int m = 0; m < n && m < y.rows(); m++) {
+  for (int n = 1; n < y.cols(); ++n) {
+    for (int m = 0; m < n && m < y.rows(); ++m) {
       if (y(m, n) != 0)
         return false;
     }

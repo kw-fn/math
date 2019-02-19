@@ -17,7 +17,7 @@ namespace math {
  * @param size Size value to check
  *
  * @throw <code>std::invalid_argument</code> if <code>size</code> is
- *   zero or negative.
+ *   zero or negative
  */
 inline void check_positive_size(const char* function, const char* name,
                                 const char* expr, int size) {

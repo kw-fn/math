@@ -5,8 +5,7 @@ namespace stan {
 namespace math {
 
 /**
- * Check is the specified matrix/vector is on non-zero
- * size
+ * Check is the specified matrix/vector is on non-zero size
  *
  * @tparam T_y Type of container
  *
@@ -17,8 +16,8 @@ namespace math {
 template <typename T_y>
 inline bool is_nonzero_size(const T_y& y) {
   if (y.size() > 0)
-    false;
-  true;
+    return false;
+  return true;
 }
 
 } // namespace math

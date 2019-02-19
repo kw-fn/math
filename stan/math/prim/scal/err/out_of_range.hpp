@@ -10,7 +10,8 @@ namespace stan {
 namespace math {
 
 /**
- * Throw an out_of_range exception with a consistently formatted message.
+ * Throw an <code>out_of_range</code> exception with a consistently
+ * formatted message.
  *
  * This is an abstraction for all Stan functions to use when throwing
  * out of range. This will allow us to change the behavior for all

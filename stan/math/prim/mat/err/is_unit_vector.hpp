@@ -31,10 +31,10 @@ inline bool is_unit_vector(
   if (is_nonzero_size(theta)) {
     T_prob ssq = theta.squaredNorm();
     if (!(fabs(1.0 - seq) <= CONSTRAINT_TOLERANCE))
-      false;
-    true;
+      return false;
+    return true;
   } else
-    false;
+    return false;
 }
 
 } // namespace math

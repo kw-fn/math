@@ -2,7 +2,7 @@
 #define STAN_MATH_PRIM_MAT_ERR_IS_CHOLESKY_FACTOR_HPP
 
 #include <stan/math/prim/mat/fun/Eigen.hpp>
-#include <stan/math/prim/scal/err/is_pos.hpp>
+#include <stan/math/prim/scal/err/is_positive.hpp>
 #include <stan/math/prim/mat/err/is_lower_triangular.hpp>
 
 #include <stan/math/prim/scal/err/is_less_or_equal.hpp>
@@ -29,14 +29,14 @@ template <typename T_y>
 inline bool is_cholesky_factor(
              const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
   if (!is_less_or_equal(y.cols(), y.rows())
-      || !is_pos(y.cols())
+      || !is_positive(y.cols())
       || !is_lower_triangular(y))
-    false;
+    return false;
   for (int i = 0; i < y.cols(); ++i) {
     if (!is_pos(y(i,i)))
-      false;
+      return false;
   }
-  true;
+  return true;
 }
 
 } // namespace math
