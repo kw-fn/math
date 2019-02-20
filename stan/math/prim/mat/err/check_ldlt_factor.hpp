@@ -22,8 +22,7 @@ namespace math {
  * @param[in] function function name for error messages
  * @param[in] name variable name for error messages
  * @param[in] A LDLT factor to check for validity
- * @throws <code>std::domain_error</code> if the LDLT factor is
- *   invalid.
+ * @throws <code>std::domain_error</code> if the LDLT factor is invalid
  */
 template <typename T, int R, int C>
 inline void check_ldlt_factor(const char* function, const char* name,

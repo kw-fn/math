@@ -28,7 +28,7 @@ namespace math {
 template <typename T_y>
 void check_ordered(const char* function, const char* name,
                    const std::vector<T_y>& y) {
-  for (size_t n = 1; n < y.size(); n++) {
+  for (size_t n = 1; n < y.size(); ++n) {
     if (!(y[n] > y[n - 1])) {
       std::ostringstream msg1;
       msg1 << "is not a valid ordered vector."

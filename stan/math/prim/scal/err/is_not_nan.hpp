@@ -28,7 +28,7 @@ struct not_nan<T_y, true> {
   }
 };
 } // namespace
-  
+
 /**
  * Check if <code>y</code> is not <code>NaN</code>.
  *

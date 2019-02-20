@@ -10,9 +10,8 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the dimension of x is consistent, which
- * is defined to be <code>expected_size</code> if x is a vector or 1 if x
- * is not a vector.
+ * Check if the dimension of x is consistent, which is defined to be
+ * <code>expected_size</code> if x is a vector or 1 if x is not a vector.
  *
  * @tparam T Type of value
  *

@@ -30,7 +30,7 @@ namespace math {
  * @param z Variable to check
  *
  * @throw <code>domain_error</code> if 2F1(a1, a2, b1, z)
- *   does not meet convergence conditions, or if any coefficient is NaN.
+ *   does not meet convergence conditions, or if any coefficient is NaN
  */
 template <typename T_a1, typename T_a2, typename T_b1, typename T_z>
 inline void check_2F1_converges(const char* function, const T_a1& a1,

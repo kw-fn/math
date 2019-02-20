@@ -11,12 +11,12 @@
 namespace stan {
 namespace math {
 /**
- * Check if the specified vector is unit vector.
+ * Check if the specified vector is a unit vector.
  *
- * A valid unit vector is one where the square of the elements
- * summed is equal to 1. This function tests that the sum is within the
- * tolerance specified by <code>CONSTRAINT_TOLERANCE</code>.  This
- * function only accepts Eigen vectors, statically typed vectors,
+ * A valid unit vector is where the square of the elements
+ * summed equals to 1. This function tests that the sum is within the
+ * tolerance specified by <code>CONSTRAINT_TOLERANCE</code>. This
+ * function only accepts Eigen vectors, and statically typed vectors,
  * not general matrices with 1 column.
  *
  * @tparam T_prob Scalar type of the vector

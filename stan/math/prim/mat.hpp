@@ -46,6 +46,15 @@
 #include <stan/math/prim/mat/err/constraint_tolerance.hpp>
 #include <stan/math/prim/mat/err/validate_non_negative_index.hpp>
 
+#include <stan/math/prim/mat/err/is_cholesky_factor_corr.hpp>
+#include <stan/math/prim/mat/err/is_cholesky_factor.hpp>
+#include <stan/math/prim/mat/err/is_col_index.hpp>
+#include <stan/math/prim/mat/err/is_corr_matrix.hpp>
+#include <stan/math/prim/mat/err/is_lower_triangular.hpp>
+#include <stan/math/prim/mat/err/is_pos_definite.hpp>
+#include <stan/math/prim/mat/err/is_square.hpp>
+#include <stan/math/prim/mat/err/is_unit_vector.hpp>
+
 #include <stan/math/prim/mat/fun/Eigen.hpp>
 #include <stan/math/prim/mat/fun/LDLT_factor.hpp>
 #include <stan/math/prim/mat/fun/Phi.hpp>

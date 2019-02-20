@@ -28,7 +28,7 @@ template <typename T_y>
 struct positive<T_y, true> {
   static void check(const char* function, const char* name, const T_y& y) {
     using stan::length;
-    for (size_t n = 0; n < length(y); n++) {
+    for (size_t n = 0; n < length(y); ++n) {
       if (!boost::is_unsigned<typename value_type<T_y>::type>::value
           && !(stan::get(y, n) > 0))
         domain_error_vec(function, name, y, n, "is ", ", but must be > 0!");
@@ -51,7 +51,7 @@ struct positive<T_y, true> {
  * @param y Variable to check
  *
  * @throw <code>domain_error</code> if y is negative or zero or
- *   if any element of y is NaN.
+ *   if any element of y is NaN
  */
 template <typename T_y>
 inline void check_positive(const char* function, const char* name,

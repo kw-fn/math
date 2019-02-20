@@ -6,9 +6,9 @@
 #include <stan/math/prim/mat/meta/is_vector.hpp>
 #include <stan/math/prim/mat/meta/is_vector_like.hpp>
 #include <stan/math/prim/scal/err/is_positive_size.hpp>
-
-#include <stan/math/prim/scal/err/check_not_nan.hpp>
+#include <stan/math/prim/scal/err/is_not_nan.hpp>
 #include <stan/math/prim/scal/err/domain_error.hpp>
+
 #include <stan/math/prim/mat/err/check_symmetric.hpp>
 #include <stan/math/prim/mat/err/constraint_tolerance.hpp>
 
@@ -25,8 +25,8 @@ namespace math {
  * @tparam T_y Type of scalar of the matrix
  *
  * @param y Matrix to test
- * 
- * @return <code>true</code> if the matrix is square or if 
+ *
+ * @return <code>true</code> if the matrix is square or if
  * the matrix has non-0 size, or if the matrix is symmetric,
  * or if it is positive definite, or if no element is <code>NaN</code>
  */

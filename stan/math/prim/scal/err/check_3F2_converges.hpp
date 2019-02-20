@@ -34,7 +34,7 @@ namespace math {
  * @param z Variable to check
  *
  * @throw <code>domain_error</code> if 3F2(a1, a2, a3, b1, b2, z)
- *   does not meet convergence conditions, or if any coefficient is NaN.
+ *   does not meet convergence conditions, or if any coefficient is NaN
  */
 template <typename T_a1, typename T_a2, typename T_a3, typename T_b1,
           typename T_b2, typename T_z>

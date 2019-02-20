@@ -20,7 +20,7 @@ namespace math {
  * @param y Variable to check
  *
  * @throw <code>domain_error</code> if any element of y is not positive or
- *   if any element of y is NaN.
+ *   if any element of y is NaN
  */
 template <typename T_y>
 inline void check_positive_finite(const char* function, const char* name,

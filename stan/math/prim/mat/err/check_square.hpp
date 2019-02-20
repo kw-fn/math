@@ -19,8 +19,7 @@ namespace math {
  * @param name Variable name (for error messages)
  * @param y Matrix to test
  *
- * @throw <code>std::invalid_argument</code> if the matrix
- *    is not square
+ * @throw <code>std::invalid_argument</code> if the matrix is not square
  */
 template <typename T_y>
 inline void check_square(

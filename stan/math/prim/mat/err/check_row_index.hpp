@@ -10,7 +10,7 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified index is a valid row of the matrix
+ * Check if the specified index is a valid row of the matrix.
  *
  * This check is 1-indexed by default. This behavior can be changed
  * by setting <code>stan::error_index::value</code>.
@@ -24,7 +24,7 @@ namespace math {
  * @param y Matrix to test
  * @param i is index
  *
- * @throw <code>std::out_of_range</code> if the index is out of range.
+ * @throw <code>std::out_of_range</code> if the index is out of range
  */
 template <typename T_y, int R, int C>
 inline void check_row_index(const char* function, const char* name,

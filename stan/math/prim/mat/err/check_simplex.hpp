@@ -14,9 +14,9 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified vector is simplex.
- * To be a simplex, all values must be greater than or equal to 0
- * and the values must sum to 1.
+ * Check if the specified vector is simplex. To be a simplex, 
+ * all values must be greater than or equal to 0 and the values
+ * must sum to 1.
  *
  * A valid simplex is one where the sum of hte elements is equal
  * to 1.  This function tests that the sum is within the tolerance
@@ -28,12 +28,12 @@ namespace math {
  *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
- * @param theta Vector to test.
+ * @param theta Vector to test
  *
  * @throw <code>std::invalid_argument</code> if <code>theta</code>
- *   is a 0-vector.
+ *   is a 0-vector
  * @throw <code>std::domain_error</code> if the vector is not a
- *   simplex or if any element is <code>NaN</code>.
+ *   simplex or if any element is <code>NaN</code>
  */
 template <typename T_prob>
 void check_simplex(const char* function, const char* name,
@@ -53,7 +53,7 @@ void check_simplex(const char* function, const char* name,
     std::string msg_str(msg.str());
     domain_error(function, name, 1.0, msg_str.c_str());
   }
-  for (size_t n = 0; n < theta.size(); n++) {
+  for (size_t n = 0; n < theta.size(); ++n) {
     if (!(theta[n] >= 0)) {
       std::ostringstream msg;
       msg << "is not a valid simplex. " << name << "["

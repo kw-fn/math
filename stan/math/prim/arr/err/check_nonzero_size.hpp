@@ -7,8 +7,7 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified matrix/vector is of
- * non-zero size.
+ * Check if the specified matrix/vector is of non-zero size.
  *
  * Throws a std:invalid_argument otherwise. The message
  * will indicate that the variable name "has size 0".

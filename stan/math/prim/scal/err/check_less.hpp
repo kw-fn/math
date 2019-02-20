@@ -19,7 +19,7 @@ struct less {
                     const T_high& high) {
     using stan::length;
     scalar_seq_view<T_high> high_vec(high);
-    for (size_t n = 0; n < length(high); n++) {
+    for (size_t n = 0; n < length(high); ++n) {
       if (!(y < high_vec[n])) {
         std::stringstream msg;
         msg << ", but must be less than ";
@@ -37,7 +37,7 @@ struct less<T_y, T_high, true> {
                     const T_high& high) {
     using stan::length;
     scalar_seq_view<T_high> high_vec(high);
-    for (size_t n = 0; n < length(y); n++) {
+    for (size_t n = 0; n < length(y); ++n) {
       if (!(stan::get(y, n) < high_vec[n])) {
         std::stringstream msg;
         msg << ", but must be less than ";
@@ -51,8 +51,7 @@ struct less<T_y, T_high, true> {
 }  // namespace
 
 /**
- * Check if <code>y</code> is strictly less
- * than <code>high</code>.
+ * Check if <code>y</code> is strictly less than <code>high</code>.
  *
  * This function is vectorized and will check each element of
  * <code>y</code> against each element of <code>high</code>.
@@ -66,7 +65,7 @@ struct less<T_y, T_high, true> {
  * @param high Upper bound
  *
  * @throw <code>domain_error</code> if y is not less than low
- *   or if any element of y or high is NaN.
+ *   or if any element of y or high is NaN
  */
 template <typename T_y, typename T_high>
 inline void check_less(const char* function, const char* name, const T_y& y,

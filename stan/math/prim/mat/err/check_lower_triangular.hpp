@@ -10,8 +10,7 @@
 namespace stan {
 namespace math {
 /**
- * Check if the specified matrix is lower
- * triangular.
+ * Check if the specified matrix is lower triangular.
  *
  * A matrix x is not lower triangular if there is a non-zero entry
  * x[m, n] with m &lt; n. This function only inspects the upper

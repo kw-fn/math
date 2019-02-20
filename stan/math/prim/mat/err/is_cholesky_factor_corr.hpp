@@ -12,11 +12,11 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified matrix is a
- * Cholesky factor of a correlation matrix.
+ * Check if the specified matrix is a Cholesky factor of a
+ * correlation matrix.
  *
  * A Cholesky factor is a lower triangular matrix
- * whose diagonal elements are all positive. ThiS
+ * whose diagonal elements are all positive. This
  * definition does not require a square matrix just
  * that M &gt;= N, for M rows and N columns.
  *

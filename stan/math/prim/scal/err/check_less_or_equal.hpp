@@ -19,7 +19,7 @@ struct less_or_equal {
                     const T_high& high) {
     using stan::length;
     scalar_seq_view<T_high> high_vec(high);
-    for (size_t n = 0; n < length(high); n++) {
+    for (size_t n = 0; n < length(high); ++n) {
       if (!(y <= high_vec[n])) {
         std::stringstream msg;
         msg << ", but must be less than or equal to ";
@@ -37,7 +37,7 @@ struct less_or_equal<T_y, T_high, true> {
                     const T_high& high) {
     using stan::length;
     scalar_seq_view<T_high> high_vec(high);
-    for (size_t n = 0; n < length(y); n++) {
+    for (size_t n = 0; n < length(y); ++n) {
       if (!(stan::get(y, n) <= high_vec[n])) {
         std::stringstream msg;
         msg << ", but must be less than or equal to ";
@@ -66,7 +66,7 @@ struct less_or_equal<T_y, T_high, true> {
  * @param high Upper bound
  *
  * @throw <code>std::domain_error</code> if y is not less than or equal
- *   to low or if any element of y or high is NaN.
+ *   to low or if any element of y or high is NaN
  */
 template <typename T_y, typename T_high>
 inline void check_less_or_equal(const char* function, const char* name,

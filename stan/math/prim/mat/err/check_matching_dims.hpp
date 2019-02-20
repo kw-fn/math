@@ -29,8 +29,8 @@ namespace math {
  * @param name2 Variable name for the second matrix (for error messages)
  * @param y2 Second matrix
  *
- * @throw <code>std::invalid_argument</code>
- * if the dimensions of the matrices do not match
+ * @throw <code>std::invalid_argument</code> if the dimensions of the 
+ *    matrices do not match
  */
 template <typename T1, typename T2, int R1, int C1, int R2, int C2>
 inline void check_matching_dims(const char* function, const char* name1,
@@ -64,8 +64,8 @@ inline void check_matching_dims(const char* function, const char* name1,
  * @param name2 Variable name for the second matrix (for error messages)
  * @param y2 Second matrix
  *
- * @throw <code>std::invalid_argument</code> if the
- * dimensions of the matrices do not match
+ * @throw <code>std::invalid_argument</code> if the dimensions of the matrices
+ *    do not match
  */
 template <bool check_compile, typename T1, typename T2, int R1, int C1, int R2,
           int C2>

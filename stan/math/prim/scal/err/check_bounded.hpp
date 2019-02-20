@@ -28,7 +28,7 @@ struct bounded {
 
     scalar_seq_view<T_low> low_vec(low);
     scalar_seq_view<T_high> high_vec(high);
-    for (size_t n = 0; n < max_size(low, high); n++) {
+    for (size_t n = 0; n < max_size(low, high); ++n) {
       if (!(low_vec[n] <= y && y <= high_vec[n])) {
         std::stringstream msg;
         msg << ", but must be in the interval ";
@@ -49,7 +49,7 @@ struct bounded<T_y, T_low, T_high, true> {
 
     scalar_seq_view<T_low> low_vec(low);
     scalar_seq_view<T_high> high_vec(high);
-    for (size_t n = 0; n < length(y); n++) {
+    for (size_t n = 0; n < length(y); ++n) {
       if (!(low_vec[n] <= get(y, n) && get(y, n) <= high_vec[n])) {
         std::stringstream msg;
         msg << ", but must be in the interval ";
@@ -63,8 +63,7 @@ struct bounded<T_y, T_low, T_high, true> {
 }  // namespace internal
 
 /**
- * Check if the value is between the low and high
- * values, inclusively.
+ * Check if the value is between the low and high values, inclusively.
  *
  * @tparam T_y Type of value
  * @tparam T_low Type of low value
@@ -77,7 +76,7 @@ struct bounded<T_y, T_low, T_high, true> {
  * @param high High bound
  *
  * @throw <code>std::domain_error</code> otherwise. This also throws
- *   if any of the arguments are NaN.
+ *   if any of the arguments are NaN
  */
 template <typename T_y, typename T_low, typename T_high>
 inline void check_bounded(const char* function, const char* name, const T_y& y,

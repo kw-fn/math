@@ -11,8 +11,7 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the matrix is either a
- * row vector or column vector.
+ * Check if the matrix is either a row vector or column vector.
  *
  * This function checks the runtime size of the matrix to check
  * whether it is a row or column vector.
@@ -26,7 +25,7 @@ namespace math {
  * @param x Matrix
  *
  * @throw <code>std::invalid_argument</code> if x is not a row or column
- *   vector.
+ *   vector
  */
 template <typename T, int R, int C>
 inline void check_vector(const char* function, const char* name,
