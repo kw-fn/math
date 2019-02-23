@@ -7,7 +7,6 @@
 #include <stan/math/prim/mat/meta/index_type.hpp>
 #include <stan/math/prim/mat/fun/value_of.hpp>
 #include <stan/math/prim/mat/err/is_square.hpp>
-
 #include <stan/math/prim/mat/err/constraint_tolerance.hpp>
 
 namespace stan {

@@ -30,3 +30,4 @@ namespace math {
  *   if the matrix is symmetric, diagonals are near 1, positive definite,
  *   and no elements are NaN.
  */
+#endif

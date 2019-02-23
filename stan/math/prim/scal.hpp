@@ -59,7 +59,7 @@
 #include <stan/math/prim/scal/err/invalid_argument_vec.hpp>
 #include <stan/math/prim/scal/err/out_of_range.hpp>
 #include <stan/math/prim/scal/err/is_nonzero.hpp>
-#include <stan/math/prim/scal/err/is_pos.hpp>
+#include <stan/math/prim/scal/err/is_positive.hpp>
 #include <stan/math/prim/scal/err/is_size_match.hpp>
 
 #include <stan/math/prim/scal/fun/abs.hpp>

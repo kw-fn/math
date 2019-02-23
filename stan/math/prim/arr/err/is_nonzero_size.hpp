@@ -16,8 +16,8 @@ namespace math {
 template <typename T_y>
 inline bool is_nonzero_size(const T_y& y) {
   if (y.size() > 0)
-    return false;
-  return true;
+    return true;
+  return false;
 }
 
 } // namespace math

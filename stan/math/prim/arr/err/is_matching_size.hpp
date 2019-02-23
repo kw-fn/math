@@ -1,5 +1,5 @@
-#ifndef STAN_MATH_PRIM_ARR_ERR_IS_MATCH_SIZE_HPP
-#define STAN_MATH_PRIM_ARR_ERR_IS_MATCH_SIZE_HPP
+#ifndef STAN_MATH_PRIM_ARR_ERR_IS_MATCHING_SIZE_HPP
+#define STAN_MATH_PRIM_ARR_ERR_IS_MATCHING_SIZE_HPP
 
 #include <stan/math/prim/scal/err/is_size_match.hpp>
 
@@ -22,8 +22,8 @@ namespace math {
  * @return <code>true</code> if the variable sizes match
  */
 template <typename T_y1, typename T_y2>
-inline bool is_match_size(const T_y1& y1, const T_y2& y2) {
-  is_size_match(y1.size(), y2.size());
+inline bool is_matching_size(const T_y1& y1, const T_y2& y2) {
+  return is_size_match(y1.size(), y2.size());
 }
 
 } // namespace math

@@ -30,3 +30,4 @@ namespace math {
  * the matrix has non-0 size, or if the matrix is symmetric,
  * or if it is positive definite, or if no element is <code>NaN</code>
  */
+#endif
