@@ -28,7 +28,7 @@ inline void check_nonzero_size(const char* function, const char* name,
     return;
 
   invalid_argument(function, name, 0, "has size ",
-                   ", but must have a non-zero size");
+                   ", but must have a non-zero size.");
 }
 
 }  // namespace math
