@@ -51,6 +51,7 @@ inline void check_pos_definite(const char* function, const char* name,
  * @param name Variable name (for error messages)
  * @param cholesky Eigen::LDLT to test, whose progenitor
  * must not have any NaN elements
+ *
  * @throw <code>std::domain_error</code> if the matrix is not
  * positive definite
  */

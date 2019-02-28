@@ -12,7 +12,7 @@ namespace math {
  * A valid covariance matrix is a square, symmetric matrix that is
  * positive definite.
  *
- * @tparam T Type of scalar
+ * @tparam T_y Type of scalar
  *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
@@ -21,7 +21,7 @@ namespace math {
  * @throw <code>std::invalid_argument</code> if the matrix is not square
  *   or if the matrix is 0x0
  * @throw <code>std::domain_error</code> if the matrix is not symmetric,
- *   if the matrix is not positive definite, or if any element of the 
+ *   if the matrix is not positive definite, or if any element of the
  *   matrix is nan
  */
 template <typename T_y>

@@ -21,7 +21,7 @@ namespace math {
 template <typename T_y>
 inline bool is_square(
     const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
-  is_size_match(y.rows(), y.cols());
+  return is_size_match(y.rows(), y.cols());
 }
 
 }  // namespace math
