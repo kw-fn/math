@@ -14,29 +14,27 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified matrix is a valid correlation matrix.
+ * Return <code>true</code> if the matrix is square and not 0x0,
+ * if the matrix is symmetric, diagonals are near 1, positive definite,
+ * and no elements are <code>NaN</code>
  *
  * A valid correlation matrix is symmetric, has a unit diagonal
  * (all 1 values), and has all values between -1 and 1 (inclusive).
  *
- * This function throws exceptions if the variable is not a valid
- * correlation matrix.
- *
- * @tparam T_y Eigen::Matrix
+ * @tparam T_y Type of scalar, requires class method <code>.rows()</code>
+ *   and <code>.cols()</code>
  *
  * @param y Matrix to test
  *
  * @return <code>true</code> if the matrix is square and not 0x0,
  *   if the matrix is symmetric, diagonals are near 1, positive definite,
- *   and no elements are NaN.
+ *   and no elements are <code>NaN</code>
  */
 template <typename T_y>
-inline bool is_corr_matrix(
-             const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
+inline bool is_corr_matrix(const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
   using Eigen::Matrix;
 
-  typedef
-      typename index_type<Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic> >::type
+  typedef typename index_type<Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic> >::type
           size_t;
 
   if (is_size_match(y.rows(), y.cols())) {
@@ -49,7 +47,7 @@ inline bool is_corr_matrix(
           }
         }
       }
-  return check_pos_definite(y);
+  return is_pos_definite(y);
 }
 
 }  // namespace math

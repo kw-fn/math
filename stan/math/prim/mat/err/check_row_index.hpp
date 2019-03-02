@@ -22,7 +22,7 @@ namespace math {
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
  * @param y Matrix to test
- * @param i is index
+ * @param i Starting index row
  *
  * @throw <code>std::out_of_range</code> if the index is out of range
  */

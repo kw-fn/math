@@ -25,11 +25,11 @@ namespace math {
  *
  * @param function Function name (for error messages)
  * @param name1 Variable name for the first matrix (for error messages)
- * @param y1 First matrix
+ * @param y1 First matrix to test
  * @param name2 Variable name for the second matrix (for error messages)
- * @param y2 Second matrix
+ * @param y2 Second matrix to test
  *
- * @throw <code>std::invalid_argument</code> if the dimensions of the 
+ * @throw <code>std::invalid_argument</code> if the dimensions of the
  *    matrices do not match
  */
 template <typename T1, typename T2, int R1, int C1, int R2, int C2>
@@ -60,9 +60,9 @@ inline void check_matching_dims(const char* function, const char* name1,
  *
  * @param function Function name (for error messages)
  * @param name1 Variable name for the first matrix (for error messages)
- * @param y1 First matrix
+ * @param y1 First matrix to test
  * @param name2 Variable name for the second matrix (for error messages)
- * @param y2 Second matrix
+ * @param y2 Second matrix to test
  *
  * @throw <code>std::invalid_argument</code> if the dimensions of the matrices
  *    do not match
@@ -82,6 +82,7 @@ inline void check_matching_dims(const char* function, const char* name1,
   }
   check_matching_dims(function, name1, y1, name2, y2);
 }
+
 }  // namespace math
 }  // namespace stan
 #endif

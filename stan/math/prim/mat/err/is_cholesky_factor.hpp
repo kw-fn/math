@@ -4,26 +4,28 @@
 #include <stan/math/prim/mat/fun/Eigen.hpp>
 #include <stan/math/prim/scal/err/is_positive.hpp>
 #include <stan/math/prim/mat/err/is_lower_triangular.hpp>
-
 #include <stan/math/prim/scal/err/is_less_or_equal.hpp>
 
 namespace stan {
 namespace math {
 /**
- * Check if the specified matrix is a valid Cholesky factor.
+ * Return <code>true</code> if y is a valid Choleksy factor, if
+ * number of rows is not less than the number of columns, if there 
+ * are no 0 columns, and no element in matrix is <code>NaN</code>.
  *
  * A Cholesky factor is a lower triangular matrix whose diagonal
  * elements are all positive.  Note that Cholesky factors need not
  * be square, but requires at least as many rows M as columns N
  * (i.e., M &gt;= N).
  *
- * @tparam T_y Type of elements of Cholesky factor
+ * @tparam T_y Type of elements of Cholesky factor, requires class method
+ *   <code>.rows()</code> and <code>.cols()</code>
  *
  * @param y Matrix to test
  *
- * @throw <code>true</code> if y is a valid Choleksy factor, if
+ * @return <code>true</code> if y is a valid Choleksy factor, if
  *   number of rows is not less than the number of columns,
- *   if there are no 0 columns, and no element in matrix is NaN
+ *   if there are no 0 columns, and no element in matrix is <code>NaN</code>
  */
 template <typename T_y>
 inline bool is_cholesky_factor(

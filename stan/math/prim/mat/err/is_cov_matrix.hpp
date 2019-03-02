@@ -7,7 +7,9 @@
 namespace stan {
 namespace math {
 /**
- * Check if the specified matrix is a valid covariance matrix.
+ * Return <code>true</code> if the matrix is square or if the matrix
+ * is 0x0, if the matrix is symmetric, if the matrix is positive
+ * definite, or if no element of the matrix is <code>NaN</code>.
  *
  * A valid covariance matrix is a square, symmetric matrix that is
  * positive definite.
@@ -18,12 +20,11 @@ namespace math {
  *
  * @return <code>true</code> if the matrix is square or if the matrix
  *   is 0x0, if the matrix is symmetric, if the matrix is positive
- *   definite, or if no element of the matrix is nan
+ *   definite, or if no element of the matrix is <code>NaN</code>
  */
 template <typename T_y>
-inline void check_cov_matrix(
-         const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
-  return is_pos_definite(function, name, y);
+inline bool is_cov_matrix(const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
+  return is_pos_definite(y);
 }
 
 }  // namespace math

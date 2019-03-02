@@ -15,7 +15,7 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified matrix is positive definite
+ * Check if the specified matrix is positive definite.
  *
  * @tparam T_y scalar type of the matrix
  *

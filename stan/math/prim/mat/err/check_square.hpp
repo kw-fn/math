@@ -13,7 +13,7 @@ namespace math {
  *
  * This check allows 0x0 matrices.
  *
- * @tparam T Type of scalar.
+ * @tparam T Type of scalar
  *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)

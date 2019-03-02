@@ -8,19 +8,18 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified matrix is square.
+ * Return <code>true</code> if matrix is square. This check allows 
+ * 0x0 matrices.
  *
- * This check allows 0x0 matrices.
- *
- * @tparam T type of scalar
+ * @tparam T Type of scalar, requires class method <code>.rows()</code>
+ *    and <code>.cols()</code>
  *
  * @param y Matrix to test
  *
  * @return <code>true</code> if matrix is square
  */
 template <typename T_y>
-inline bool is_square(
-    const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
+inline bool is_square(const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynamic>& y) {
   return is_size_match(y.rows(), y.cols());
 }
 

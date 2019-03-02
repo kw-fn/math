@@ -25,7 +25,7 @@ namespace math {
  *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
- * @param y Matrix
+ * @param y Matrix to test
  * @param i Index to check
  *
  * @throw <code>std::out_of_range</code> if index is an invalid column

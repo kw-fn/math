@@ -56,8 +56,6 @@ inline Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic> cholesky_decompose(
   return llt.matrixL();
 #endif
 }
-<<<<<<< HEAD
-=======
 
 /**
  * Return the lower-triangular Cholesky factor (i.e., matrix
@@ -101,8 +99,7 @@ inline Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> cholesky_decompose(
   return llt.matrixL();
 #endif
 }
->>>>>>> 2850ec262181075a5843968e805dc9ad1654e069
-}  // namespace math
 
+}  // namespace math
 }  // namespace stan
 #endif

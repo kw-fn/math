@@ -8,28 +8,30 @@
 namespace stan {
 namespace math {
 
-/*
- * Checks if the specified vector is unit vector.
+/**
+ * Return <code>true</code> if the vector is not a unit vector or if any 
+ * element is <code>NaN</code>.
  *
  * A valid unit vector is on where the square elements
  * summed is equal to 1. This function tests that the sum
  * is within the tolerance specified by <code>CONSTRAINT_TOLERANCE</code>.
- * This function only accpets Eigen vectors, statically
+ * This function only accpets <code>Eigen::Matrix</code> vectors, statically
  * typed vectors, not general matrices with 1 column.
  *
- * @tparam T_prob Scalar type of the vector
+ * @tparam T_prob Scalar type of the vector, reqires class method
+ *   <code>.squaredNorm()</code> 
  *
- * @param theta Vector to test
+ * @param theta Eigen vector to test
  *
  * @return <code>true</code> if the vector is not a unit
- *   vector of if any element is <code>NaN</code>
+ *   vector or if any element is <code>NaN</code>
  */
 
 template <typename T_prob>
 inline bool is_unit_vector(
               const Eigen::Matrix<T_prob, Eigen::Dynamic, 1>&theta) {
   if (is_nonzero_size(theta)) {
-    T_prob ssq = theta.squaredNorm();
+    T_prob seq = theta.squaredNorm();
     if (!(fabs(1.0 - seq) <= CONSTRAINT_TOLERANCE))
       return false;
     return true;
@@ -37,6 +39,6 @@ inline bool is_unit_vector(
     return false;
 }
 
-} // namespace math
-} // namespace stan
+}  // namespace math
+}  // namespace stan
 #endif

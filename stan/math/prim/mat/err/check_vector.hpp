@@ -13,8 +13,8 @@ namespace math {
 /**
  * Check if the matrix is either a row vector or column vector.
  *
- * This function checks the runtime size of the matrix to check
- * whether it is a row or column vector.
+ * This function checks whether the runtime size of the matrix to check
+ * is a row or column vector.
  *
  * @tparam T Scalar type of the matrix
  * @tparam R Compile time rows of the matrix
@@ -22,7 +22,7 @@ namespace math {
  *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
- * @param x Matrix
+ * @param x Matrix to test
  *
  * @throw <code>std::invalid_argument</code> if x is not a row or column
  *   vector

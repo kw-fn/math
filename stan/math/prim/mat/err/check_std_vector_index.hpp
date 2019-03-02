@@ -2,7 +2,6 @@
 #define STAN_MATH_PRIM_MAT_ERR_CHECK_STD_VECTOR_INDEX_HPP
 
 #include <stan/math/prim/scal/err/out_of_range.hpp>
-
 #include <sstream>
 #include <string>
 #include <vector>
@@ -11,7 +10,7 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified index is valid in std vector.
+ * Check if the specified index is a valid <code>std::</code> vector.
  *
  * This check is 1-indexed by default. This behavior can be changed
  * by setting <code>stan::error_index::value</code>.
@@ -21,7 +20,7 @@ namespace math {
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
  * @param y <code>std::vector</code> to test
- * @param i Index
+ * @param i Index to check
  *
  * @throw <code>std::out_of_range</code> if the index is out of range
  */

@@ -7,8 +7,7 @@
 #include <stan/math/prim/mat/meta/is_vector_like.hpp>
 #include <stan/math/prim/scal/err/is_positive_size.hpp>
 #include <stan/math/prim/scal/err/is_not_nan.hpp>
-#include <stan/math/prim/scal/err/domain_error.hpp>
-#include <stan/math/prim/mat/err/check_symmetric.hpp>
+#include <stan/math/prim/mat/err/is_symmetric.hpp>
 #include <stan/math/prim/mat/err/constraint_tolerance.hpp>
 #include <stan/math/prim/mat/fun/Eigen.hpp>
 #include <stan/math/prim/mat/fun/value_of_rec.hpp>
@@ -17,16 +16,17 @@ namespace stan {
 namespace math {
 
 /**
- * Check if the specified square, symmetric
- * matrix is positive definite.
+ * Return <code>true</code> if the matrix is square or if the matrix has 
+ * non-zero size, or if the matrix is symmetric, or if it is positive 
+ * definite, or if no element is <code>NaN</code>.
  *
- * @tparam T_y Type of scalar of the matrix
+ * @tparam T_y Type of scalar of the matrix, requires class method <code>.rows()</code>
  *
  * @param y Matrix to test
  *
- * @return <code>true</code> if the matrix is square or if
- * the matrix has non-0 size, or if the matrix is symmetric,
- * or if it is positive definite, or if no element is <code>NaN</code>
+ * @return <code>true</code> if the matrix is square or if the matrix has non-0 size, 
+ *   or if the matrix is symmetric, or if it is positive definite, or if no element 
+ *   is <code>NaN</code>
  */
 template <typeof T_y>
 inline bool is_pos_definite(const Eigen::Matrix<T_y, -1, -1>& y) {
@@ -40,13 +40,15 @@ inline bool is_pos_definite(const Eigen::Matrix<T_y, -1, -1>& y) {
         return false;
     }
   }
-  return check_not_nan(y);
+  return is_not_nan(y);
 }
 
 /**
- * Check if the specified LDLT transform of a matrix is positive definite.
+ * Return <code>true</code> if the matrix is positive definite.
  *
- * @tparam Derived Derived type of the Eigen::LDLT transform
+ * @tparam Derived Derived type of the Eigen::LDLT transform, requires
+ *   class method <code>.info()</code> and <code>.isPositive()</code>
+ *   and <code>.vectorD().array()</code>
  *
  * @param cholesky Eigen::LDLT to test, whose progenitor
  * must not have any NaN elements
@@ -62,10 +64,10 @@ inline bool is_pos_definite(const Eigen::LDLT<Derived>& cholesky) {
 }
 
 /**
- * Check if the specified LLT decomposition
- * transform resulted in <code>Eigen::Success</code>
+ * Return <code>true</code> if diagonal of the L matrix is positive.
  *
- * @tparam Derived Derived type of the Eigen::LLT transform
+ * @tparam Derived Derived type of the Eigen::LLT transform, requires
+ *   class method <code>.info()</code> and <code>.matrixLLT().diagonal().array()</code>
  *
  * @param cholesky Eigen::LLT to test, whose progenitor
  * must not have any NaN elements
@@ -73,7 +75,7 @@ inline bool is_pos_definite(const Eigen::LDLT<Derived>& cholesky) {
  * @return <code>true</code> if diagonal of the L matrix is positive
  */
 template <typename Derived>
-inline bool is__pos_definite(const Eigen::LLT<Derived>& cholesky) {
+inline bool is_pos_definite(const Eigen::LLT<Derived>& cholesky) {
   if (cholesky.info() != Eigen::Success
       || !(cholesky.matrixLLT().diagonal().array() > 0.0).all())
     return false;

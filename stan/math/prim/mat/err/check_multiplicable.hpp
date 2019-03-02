@@ -20,9 +20,9 @@ namespace math {
  *
  * @param function Function name (for error messages)
  * @param name1 Variable name for the first matrix (for error messages)
- * @param y1 First matrix
+ * @param y1 First matrix to test
  * @param name2 Variable name for the second matrix (for error messages)
- * @param y2 Second matrix
+ * @param y2 Second matrix to test
  *
  * @throw <code>std::invalid_argument</code> if the matrices are not
  *   multiplicable or if either matrix is size 0 for either rows or columns
@@ -36,6 +36,7 @@ inline void check_multiplicable(const char* function, const char* name1,
                    y2.rows());
   check_positive_size(function, name1, "cols()", y1.cols());
 }
+
 }  // namespace math
 }  // namespace stan
 #endif

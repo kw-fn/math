@@ -10,7 +10,7 @@
 namespace stan {
 namespace math {
 /**
- * Check if the specified matrix is a square, symmetric, and 
+ * Check if the specified matrix is a square, symmetric, and
  * positive semi-definite.
  *
  * @tparam T Scalar type of the matrix

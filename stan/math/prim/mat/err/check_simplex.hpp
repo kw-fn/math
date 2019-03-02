@@ -36,7 +36,7 @@ namespace math {
  *   simplex or if any element is <code>NaN</code>
  */
 template <typename T_prob>
-void check_simplex(const char* function, const char* name,
+inline void check_simplex(const char* function, const char* name,
                    const Eigen::Matrix<T_prob, Eigen::Dynamic, 1>& theta) {
   using Eigen::Dynamic;
   using Eigen::Matrix;
