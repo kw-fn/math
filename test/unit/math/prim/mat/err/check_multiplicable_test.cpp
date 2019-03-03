@@ -11,6 +11,7 @@ TEST(ErrorHandlingMatrix, checkMultiplicableMatrix) {
   x.resize(3, 3);
   EXPECT_NO_THROW(
       stan::math::check_multiplicable("checkMultiplicable", "x", x, "y", y));
+  
   x.resize(3, 2);
   y.resize(2, 4);
   EXPECT_NO_THROW(
@@ -61,6 +62,7 @@ TEST(ErrorHandlingMatrix, checkMultiplicableMatrix_nan) {
   x << nan, nan, nan, nan, nan, nan, nan, nan, nan;
   EXPECT_NO_THROW(
       stan::math::check_multiplicable("checkMultiplicable", "x", x, "y", y));
+  
   x.resize(3, 2);
   y.resize(2, 4);
   y << nan, nan, nan, nan, nan, nan, nan, nan;

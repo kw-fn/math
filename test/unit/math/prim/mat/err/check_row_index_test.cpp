@@ -10,6 +10,7 @@ TEST(ErrorHandlingMatrix, checkRowIndexMatrix) {
   y.resize(3, 3);
   EXPECT_NO_THROW(
       stan::math::check_row_index("checkRowIndexMatrix", "i", y, i));
+  
   i = 3;
   EXPECT_NO_THROW(
       stan::math::check_row_index("checkRowIndexMatrix", "i", y, i));
@@ -33,6 +34,7 @@ TEST(ErrorHandlingMatrix, checkRowIndexMatrix_nan) {
   y << nan, nan, nan, nan, nan, nan, nan, nan, nan;
   EXPECT_NO_THROW(
       stan::math::check_row_index("checkRowIndexMatrix", "i", y, i));
+  
   i = 3;
   EXPECT_NO_THROW(
       stan::math::check_row_index("checkRowIndexMatrix", "i", y, i));

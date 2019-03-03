@@ -15,6 +15,7 @@ TEST(ErrorHandlingMatrix, checkStdVectorIndexMatrix) {
   y.resize(3);
   EXPECT_NO_THROW(stan::math::check_std_vector_index(
       "checkStdVectorIndexMatrix", "i", y, i));
+  
   i = 3;
   EXPECT_NO_THROW(stan::math::check_std_vector_index(
       "checkStdVectorIndexMatrix", "i", y, i));
@@ -43,6 +44,7 @@ TEST(ErrorHandlingMatrix, checkStdVectorIndexMatrix_nan) {
   y.resize(3);
   EXPECT_NO_THROW(stan::math::check_std_vector_index(
       "checkStdVectorIndexMatrix", "i", y, i));
+  
   i = 3;
   EXPECT_NO_THROW(stan::math::check_std_vector_index(
       "checkStdVectorIndexMatrix", "i", y, i));

@@ -42,6 +42,7 @@ TEST(ErrorHandlingMatrix, checkSymmetric_nan) {
   y << 1, nan, 3, 1;
   EXPECT_THROW(stan::math::check_symmetric("checkSymmetric", "y", y),
                std::domain_error);
+  
   y << nan, 3, 3, 1;
   EXPECT_NO_THROW(stan::math::check_symmetric("checkSymmetric", "y", y));
 
