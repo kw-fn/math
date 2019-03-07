@@ -7,9 +7,7 @@ namespace stan {
 namespace math {
 
 inline bool is_validate_non_negative_index(int val) {
-  if (val < 0)
-    return false;
-  return true;
+  return val >= 0
 }
 
 }  // namespace math

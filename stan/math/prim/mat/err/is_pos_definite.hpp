@@ -19,16 +19,14 @@ namespace math {
  * Return <code>true</code> if the matrix is square or if the matrix has 
  * non-zero size, or if the matrix is symmetric, or if it is positive 
  * definite, or if no element is <code>NaN</code>.
- *
- * @tparam T_y Type of scalar of the matrix, requires class method <code>.rows()</code>
- *
+ * @tparam T_y Type of scalar of the matrix, requires class method 
+ *   <code>.rows()</code>
  * @param y Matrix to test
- *
- * @return <code>true</code> if the matrix is square or if the matrix has non-0 size, 
- *   or if the matrix is symmetric, or if it is positive definite, or if no element 
- *   is <code>NaN</code>
+ * @return <code>true</code> if the matrix is square or if the matrix has non-0 
+ *   size, or if the matrix is symmetric, or if it is positive definite, or if 
+ *   no element is <code>NaN</code>
  */
-template <typeof T_y>
+template <typename T_y>
 inline bool is_pos_definite(const Eigen::Matrix<T_y, -1, -1>& y) {
   if (is_symmetric(y)) {
     if (is_positive_size(y)) {

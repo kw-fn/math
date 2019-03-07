@@ -10,23 +10,16 @@ namespace math {
 /**
  * Return <code>true</code> if the specified index is a valid 
  * <code>std::</code> vector.
- *
  * This check is 1-indexed by default. This behavior can be changed
  * by setting <code>stan::error_index::value</code>.
- *
  * @tparam T Scalar type, requires class method <code>.size()</code>
- *
  * @param y <code>std::vector</code> to test
  * @param i Index to test
- *
  * @return <code>true</code> if the index is out of range
  */
 template <typename T>
 inline bool is_std_vector_index(const std::vector<T>& y, int i) {
-  if (i >= static_cast<int>(stan::error_index::value)
-      && i < static_cast<int>(y.size() + stan::error_index::value))
-    return true;
-  return false;
+  return i < static_cast<int>(y.size());
 }
 
 }  // namespace math

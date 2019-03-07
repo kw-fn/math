@@ -12,15 +12,12 @@ namespace math {
  * <code>LDLT_factor</code> is invalid if it was constructed from
  * a matrix that is not positive definite.  The check is that the
  * <code>success()</code> method returns <code>true</code>.
- *
  * @tparam T Type of scalar
  * @tparam R Rows of the matrix
  * @tparam C Columns of the matrix
- *
  * @param[in] function Function name for error messages
  * @param[in] name Variable name for error messages
  * @param[in] A The LDLT factor to check for validity
- * 
  * @return <code>true</code> if the LDLT factor is valid
  */
 template <typename T, int R, int C>

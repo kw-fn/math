@@ -9,26 +9,20 @@ namespace math {
 
 /**
  * Return <code>true</code> no index is invalid column.
- *
  * By default this is a 1-indexed check (as opposed to zero-indexed). 
  * Behavior can be changed by setting <code>stan::error_index::value</code>. 
- *
  * @tparam T_y Type of scalar, requires class method <code>.rows()</code>
  * @tparam R Number of rows of the matrix
  * @tparam C Number of columns of the matrix
- *
  * @param y Matrix to test
  * @param i Index to check
- *
  * @return <code>true</code> no index is invalid column
  */
 template <typename T_y, int R, int C>
 inline bool is_column_index(const Eigen::Matrix<T_y, R, C>& y,
                          size_t i) {
-  if (i >= stan::error_index::value
-      && i < static_cast<size_t>(y.cols()) + stan::error_index::value)
-    return true;
-  return false;
+  return i >= stan::error_index::value
+      && i < static_cast<size_t>(y.cols()) + stan::error_index::value;
 }
 
 } // namespace math

@@ -13,22 +13,18 @@ namespace math {
 
 /**
  * Check if the two matrices are of the same size.
- *
  * This function checks the runtime sizes only.
- *
  * @tparam T1 Scalar type of the first matrix
  * @tparam T2 Scalar type of the second matrix
  * @tparam R1 Rows specified at compile time of the first matrix
  * @tparam C1 Columns specified at compile time of the first matrix
  * @tparam R2 Rows specified at compile time of the second matrix
  * @tparam C2 Columns specified at compile time of the second matrix
- *
  * @param function Function name (for error messages)
  * @param name1 Variable name for the first matrix (for error messages)
  * @param y1 First matrix to test
  * @param name2 Variable name for the second matrix (for error messages)
  * @param y2 Second matrix to test
- *
  * @throw <code>std::invalid_argument</code> if the dimensions of the
  *    matrices do not match
  */

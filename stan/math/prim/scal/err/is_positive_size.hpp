@@ -1,8 +1,6 @@
 #ifndef STAN_MATH_PRIM_SCAL_ERR_CHECK_IS_POSITIVE_SIZE_HPP
 #define STAN_MATH_PRIM_SCAL_ERR_CHECK_IS_POSITIVE_SIZE_HPP
 
-#include <stan/math/prim/scal/err/is_invalid_argument.hpp>
-
 namespace stan {
 namespace math {
 
@@ -16,7 +14,7 @@ namespace math {
  *
  * @return <code>true</code> if <code>size</code> is not zero or negative.
  */
-inline bool is_positive_size(int size) {
+inline bool is_positive_size(int& size) {
   if (size <= 0)
     return false;
   return true;

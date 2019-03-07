@@ -11,11 +11,8 @@ namespace math {
 /**
  * Return <code>true</code> if the specified vector is sorted into
  * strictly increasing order.
- *
  * @tparam T_y Type of scalar, require class method <code>.size()</code>
- *
  * @param y Vector to test
- *
  * @return <code>true</code> if the vector elements are ordered, if 
  *   there are no duplicated values, or if no element is <code>NaN</code>
  */

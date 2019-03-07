@@ -14,11 +14,8 @@ namespace math {
 
 /**
  * Return <code>true</code> if the specified matrix is positive definite.
- *
  * @tparam T_y scalar type of the matrix, requires class method <code>.rows()</code>
- *
  * @param y Matrix to test
- *
  * @return <code>true</code> if the matrix is square, or if the matrix does 
  *   not have zero size, if the matrix is symmetric, or if it is positive 
  *   semi-definite, or if no element of the matrix is <code>NaN</code>.

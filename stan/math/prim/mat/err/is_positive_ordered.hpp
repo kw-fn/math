@@ -9,11 +9,11 @@ namespace stan {
 namespace math {
 
 /**
- * Return <code>true</code> if the specified vector contains non-negative 
+ * Return <code>true</code> if the specified vector contains non-negative
  * values and is sorted into strictly increasing order.
  *
  * @tparam T_y Type of the variable, requires class method <code>.size()</code>
- * 
+ *
  * @param y Vector to test
  *
  * @return <code>true</code> if the vector contains no non-positive
@@ -21,13 +21,14 @@ namespace math {
  *   values, and if no element is <code>NaN</code>
  */
 template <typename T_y>
-void is_positive_ordered(const Eigen::Matrix<T_y, Eigen::Dynamic, 1>& y) {
+inline bool is_positive_ordered(
+              const Eigen::Matrix<T_y, Eigen::Dynamic, 1>& y) {
   using Eigen::Dynamic;
   using Eigen::Matrix;
-  
+
   if (y.size() == 0)
     return true;
-  if (y[0] < 0) 
+  if (y[0] < 0)
     return false;
   return is_ordered(y);
 }

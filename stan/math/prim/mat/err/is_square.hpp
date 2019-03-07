@@ -8,14 +8,10 @@ namespace stan {
 namespace math {
 
 /**
- * Return <code>true</code> if matrix is square. This check allows 
- * 0x0 matrices.
- *
+ * Return <code>true</code> if matrix is square. This check allows 0x0 matrices.
  * @tparam T Type of scalar, requires class method <code>.rows()</code>
  *    and <code>.cols()</code>
- *
  * @param y Matrix to test
- *
  * @return <code>true</code> if matrix is square
  */
 template <typename T_y>

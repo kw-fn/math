@@ -13,16 +13,12 @@ namespace math {
 /**
  * Check if the specified matrix is a valid Cholesky factor of a
  * correlation matrix.
- *
  * A Cholesky factor is a lower triangular matrix whose diagonal
  * elements are all positive.  Note that Cholesky factors need not
  * be square, but requires at least as many rows M as columns N
  * (i.e., M &gt;= N).
- *
  * Tolerance is specified by <code>math::CONSTRAINT_TOLERANCE</code>.
- *
  * @tparam T_y Type of elements of Cholesky factor
- *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
  * @param y Matrix to test

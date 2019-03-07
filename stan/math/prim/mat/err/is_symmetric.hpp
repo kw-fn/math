@@ -13,11 +13,8 @@ namespace math {
 /**
  * Return <code>true</code> if the matrix is square, and no element 
  * not on the main diagonal is <code>NaN</code>.
- *
  * @tparam T_y Type of scalar, requires class method <code>.rows()</code>
- *
  * @param y Matrix to test
- *
  * @return <code>true</code> if the matrix is square, and no
  *    element not on the main diagonal is <code>NaN</code>
  */

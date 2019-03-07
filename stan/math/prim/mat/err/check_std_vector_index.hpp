@@ -11,17 +11,13 @@ namespace math {
 
 /**
  * Check if the specified index is a valid <code>std::</code> vector.
- *
  * This check is 1-indexed by default. This behavior can be changed
  * by setting <code>stan::error_index::value</code>.
- *
  * @tparam T Scalar type
- *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
  * @param y <code>std::vector</code> to test
  * @param i Index to check
- *
  * @throw <code>std::out_of_range</code> if the index is out of range
  */
 template <typename T>

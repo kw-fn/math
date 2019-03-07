@@ -17,15 +17,11 @@ namespace math {
  * Return <code>true</code> if the matrix is square and not 0x0,
  * if the matrix is symmetric, diagonals are near 1, positive definite,
  * and no elements are <code>NaN</code>
- *
  * A valid correlation matrix is symmetric, has a unit diagonal
  * (all 1 values), and has all values between -1 and 1 (inclusive).
- *
  * @tparam T_y Type of scalar, requires class method <code>.rows()</code>
  *   and <code>.cols()</code>
- *
  * @param y Matrix to test
- *
  * @return <code>true</code> if the matrix is square and not 0x0,
  *   if the matrix is symmetric, diagonals are near 1, positive definite,
  *   and no elements are <code>NaN</code>
@@ -38,7 +34,7 @@ inline bool is_corr_matrix(const Eigen::Matrix<T_y, Eigen::Dynamic, Eigen::Dynam
           size_t;
 
   if (is_size_match(y.rows(), y.cols())) {
-      if (is_positive_size(y.rows()) {
+    if (is_positive_size(y.rows())) {
           if (is_symmetric(y)) {
             for (size_t k = 0; k < y.rows(); ++k) {
               if (!(fabs(y(k, k) - 1.0) <= CONSTRAINT_TOLERANCE))

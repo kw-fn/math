@@ -11,19 +11,15 @@ namespace stan {
 namespace math {
 
 /**
- * Return <code>true</code> if the specified vector is simplex. To be a simplex, 
+ * Return <code>true</code> if the specified vector is simplex. To be a simplex,
  * all values must be greater than or equal to 0 and the values must sum to 1.
- *
- * A valid simplex is one where the sum of hte elements is equal to 1.  This 
- * function tests that the sum is within the tolerance specified by 
- * <code>CONSTRAINT_TOLERANCE</code>. This function only accepts Eigen vectors, 
+ * A valid simplex is one where the sum of hte elements is equal to 1. This
+ * function tests that the sum is within the tolerance specified by
+ * <code>CONSTRAINT_TOLERANCE</code>. This function only accepts Eigen vectors,
  * statically typed vectors, not general matrices with 1 column.
- *
  * @tparam T_prob Scalar type of the vector
- *
  * @param theta Vector to test
- *
- * @return <code>true</code> if <code>theta</code> is not a 0-vector, 
+ * @return <code>true</code> if <code>theta</code> is not a 0-vector,
  *   if the vector is a simplex and if no element is <code>NaN</code>
  */
 template <typename T_prob>
@@ -31,13 +27,13 @@ inline bool is_simplex(const Eigen::Matrix<T_prob, Eigen::Dynamic, 1>& theta) {
   using Eigen::Dynamic;
   using Eigen::Matrix;
 
-  typedef typename index_type<Matrix<T_prob, Dynamic, 1> >::type size_t;
+  //typedef typename index_type::<Matrix<T_prob, Dynamic, 1> >::type size_t;
 
-  if (is_nonzero_size(function, name, theta)) {
-    if (!(fabs(1.0 - theta.sum()) <= CONSTRAINT_TOLERANCE))
+  if (is_nonzero_size(theta)) {
+    if (!(fabs(1.0 - theta.sum()) <= 1e-8))
         return false;
-    for (size_t n = 0; n < theta.size(); ++n) {
-        if (!(theta[n] >= 0)) 
+    for (auto n = 0; n < theta.size(); ++n) {
+        if (!(theta[n] >= 0))
             return false;
     }
   } return true;

@@ -12,13 +12,10 @@ namespace math {
 /**
  * Check if the specified matrix is a square, symmetric, and
  * positive semi-definite.
- *
  * @tparam T Scalar type of the matrix
- *
  * @param function Function name (for error messages)
  * @param name Variable name (for error messages)
  * @param y Matrix to test
- *
  * @throw <code>std::invalid_argument</code> if the matrix is not square
  *   or if the matrix is 0x0
  * @throw <code>std::domain_error</code> if the matrix is not symmetric
