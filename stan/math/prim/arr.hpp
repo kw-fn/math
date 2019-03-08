@@ -10,7 +10,6 @@
 #include <stan/math/prim/arr/meta/scalar_type.hpp>
 #include <stan/math/prim/arr/meta/value_type.hpp>
 #include <stan/math/prim/arr/meta/VectorBuilderHelper.hpp>
-
 #include <stan/math/prim/arr/err/check_matching_sizes.hpp>
 #include <stan/math/prim/arr/err/check_nonzero_size.hpp>
 #include <stan/math/prim/arr/err/check_ordered.hpp>
@@ -20,7 +19,6 @@
 #ifdef STAN_OPENCL
 #include <stan/math/prim/arr/err/check_opencl.hpp>
 #endif
-
 #include <stan/math/prim/arr/fun/array_builder.hpp>
 #include <stan/math/prim/arr/fun/common_type.hpp>
 #include <stan/math/prim/arr/fun/dot.hpp>
@@ -39,7 +37,6 @@
 #include <stan/math/prim/arr/fun/sum.hpp>
 #include <stan/math/prim/arr/fun/value_of.hpp>
 #include <stan/math/prim/arr/fun/value_of_rec.hpp>
-
 #include <stan/math/prim/arr/functor/coupled_ode_observer.hpp>
 #include <stan/math/prim/arr/functor/coupled_ode_system.hpp>
 #include <stan/math/prim/arr/functor/integrate_1d.hpp>
@@ -47,7 +44,5 @@
 #include <stan/math/prim/arr/functor/mpi_command.hpp>
 #include <stan/math/prim/arr/functor/mpi_distributed_apply.hpp>
 #include <stan/math/prim/arr/functor/mpi_cluster.hpp>
-
 #include <stan/math/prim/scal.hpp>
-
 #endif

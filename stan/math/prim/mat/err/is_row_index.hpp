@@ -20,7 +20,7 @@ namespace math {
  */
 template <typename T_y, int R, int C>
 inline bool check_row_index(const Eigen::Matrix<T_y, R, C>& y, size_t i) {
-  return i < static_cast<size_t>(y.rows())
+  return i < static_cast<size_t>(y.rows());
 }
 
 }  // namespace math

@@ -55,10 +55,8 @@ inline bool is_pos_definite(const Eigen::Matrix<T_y, -1, -1>& y) {
  */
 template <typename Derived>
 inline bool is_pos_definite(const Eigen::LDLT<Derived>& cholesky) {
-  if (cholesky.info() != Eigen::Success || !cholesky.isPositive()
-      || !(cholesky.vectorD().array() > 0.0).all())
-    return false;
-  return true;
+  return (cholesky.info() != Eigen::Success || !cholesky.isPositive()
+          || !(cholesky.vectorD().array() > 0.0).all());
 }
 
 /**
@@ -74,10 +72,8 @@ inline bool is_pos_definite(const Eigen::LDLT<Derived>& cholesky) {
  */
 template <typename Derived>
 inline bool is_pos_definite(const Eigen::LLT<Derived>& cholesky) {
-  if (cholesky.info() != Eigen::Success
-      || !(cholesky.matrixLLT().diagonal().array() > 0.0).all())
-    return false;
-  return true;
+  return (cholesky.info() != Eigen::Success
+          || !(cholesky.matrixLLT().diagonal().array() > 0.0).all());
 }
 
 }  // namespace stan

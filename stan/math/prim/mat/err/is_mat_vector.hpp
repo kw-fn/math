@@ -1,8 +1,7 @@
-#ifndef STAN_MATH_PRIM_MAT_ERR_IS_VECTOR_HPP
-#define STAN_MATH_PRIM_MAT_ERR_IS_VECTOR_HPP
+#ifndef STAN_MATH_PRIM_MAT_ERR_IS_MAT_VECTOR_HPP
+#define STAN_MATH_PRIM_MAT_ERR_IS_MAT_VECTOR_HPP
 
 #include <stan/math/prim/scal/meta/scalar_type.hpp>
-#include <stan/math/prim/scal/err/invalid_argument.hpp>
 #include <stan/math/prim/mat/fun/Eigen.hpp>
 
 namespace stan {
@@ -21,7 +20,7 @@ namespace math {
  * @return <code>true</code> if **y** is a row or column vector
  */
 template <typename T, int R, int C>
-inline bool is_vector(const Eigen::Matrix<T, R, C>& y) {
+inline bool is_mat_vector(const Eigen::Matrix<T, R, C>& y) {
   return (R == 1) || (C == 1) || (y.rows() == 1 || y.cols() == 1);
 }
 

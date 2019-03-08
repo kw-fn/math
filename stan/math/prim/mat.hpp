@@ -9,6 +9,8 @@
 #include <stan/math/prim/mat/meta/broadcast_array.hpp>
 #include <stan/math/prim/mat/meta/get.hpp>
 #include <stan/math/prim/mat/meta/index_type.hpp>
+#include <stan/math/prim/mat/meta/is_constant_struct.hpp>
+#include <stan/math/prim/mat/meta/is_vector.hpp>
 #include <stan/math/prim/mat/meta/is_vector_like.hpp>
 #include <stan/math/prim/mat/meta/length.hpp>
 #include <stan/math/prim/mat/meta/length_mvt.hpp>
@@ -50,9 +52,9 @@
 #include <stan/math/prim/mat/err/is_finite.hpp>
 #include <stan/math/prim/mat/err/is_ldlt_factor.hpp>
 #include <stan/math/prim/mat/err/is_lower_triangular.hpp>
+#include <stan/math/prim/mat/err/is_mat_vector.hpp>
 #include <stan/math/prim/mat/err/is_matching_dims.hpp>
 #include <stan/math/prim/mat/err/is_multiplicable.hpp>
-#include <stan/math/prim/mat/err/is_non_negative_index.hpp>
 #include <stan/math/prim/mat/err/is_ordered.hpp>
 #include <stan/math/prim/mat/err/is_pos_definite.hpp>
 #include <stan/math/prim/mat/err/is_pos_semidefinite.hpp>
@@ -65,7 +67,6 @@
 #include <stan/math/prim/mat/err/is_std_vector_index.hpp>
 #include <stan/math/prim/mat/err/is_symmetric.hpp>
 #include <stan/math/prim/mat/err/is_unit_vector.hpp>
-#include <stan/math/prim/mat/err/is_vector.hpp>
 #include <stan/math/prim/mat/err/validate_non_negative_index.hpp>
 
 #include <stan/math/prim/mat/fun/Eigen.hpp>
