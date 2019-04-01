@@ -34,17 +34,17 @@ inline matrix_v tcrossprod(const matrix_v& M) {
   matrix_v MMt(M.rows(), M.rows());
 
   vari** vs
-      = reinterpret_cast<vari**>(ChainableStack::instance().memalloc_.alloc(
+      = reinterpret_cast<vari**>(ChainableStack::instance_->memalloc_.alloc(
           (M.rows() * M.cols()) * sizeof(vari*)));
   int pos = 0;
   for (int m = 0; m < M.rows(); ++m)
     for (int n = 0; n < M.cols(); ++n)
       vs[pos++] = M(m, n).vi_;
   for (int m = 0; m < M.rows(); ++m)
-    MMt(m, m) = var(new dot_self_vari(vs + m * M.cols(), M.cols()));
+    MMt(m, m) = var(new internal::dot_self_vari(vs + m * M.cols(), M.cols()));
   for (int m = 0; m < M.rows(); ++m) {
     for (int n = 0; n < m; ++n) {
-      MMt(m, n) = var(new dot_product_vari<var, var>(
+      MMt(m, n) = var(new internal::dot_product_vari<var, var>(
           vs + m * M.cols(), vs + n * M.cols(), M.cols()));
       MMt(n, m) = MMt(m, n);
     }

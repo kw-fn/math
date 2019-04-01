@@ -11,7 +11,7 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 class softmax_op {
   int N_;
   double* y_;  // Holds the results of the softmax
@@ -29,7 +29,7 @@ class softmax_op {
   Eigen::VectorXd operator()(const std::array<bool, size>& needs_adj,
                              const Eigen::VectorXd& alpha) {
     N_ = alpha.size();
-    y_ = ChainableStack::instance().memalloc_.alloc_array<double>(N_);
+    y_ = ChainableStack::instance_->memalloc_.alloc_array<double>(N_);
 
     auto y = softmax(alpha);
     for (int n = 0; n < N_; ++n)
@@ -61,7 +61,7 @@ class softmax_op {
     return std::make_tuple(adj_times_jac);
   }
 };
-}  // namespace
+}  // namespace internal
 
 /**
  * Return the softmax of the specified Eigen vector.  Softmax is
@@ -75,7 +75,7 @@ inline Eigen::Matrix<var, Eigen::Dynamic, 1> softmax(
     const Eigen::Matrix<var, Eigen::Dynamic, 1>& alpha) {
   check_nonzero_size("softmax", "alpha", alpha);
 
-  return adj_jac_apply<softmax_op>(alpha);
+  return adj_jac_apply<internal::softmax_op>(alpha);
 }
 
 }  // namespace math

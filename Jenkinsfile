@@ -49,6 +49,9 @@ pipeline {
         skipDefaultCheckout()
         preserveStashes(buildCount: 7)
     }
+    environment {
+        STAN_NUM_THREADS = '4'
+    }
     stages {
         stage('Kill previous builds') {
             when {
@@ -159,7 +162,31 @@ pipeline {
                     }
                     post { always { retry(3) { deleteDir() } } }
                 }
-                stage('GPU Tests') {
+                stage('Windows Headers & Unit') {
+                     agent { label 'windows' }
+                     steps {
+                         deleteDirWin()
+                         unstash 'MathSetup'
+                         bat "make -j${env.PARALLEL} test-headers"
+                         runTestsWin("test/unit")
+                     }
+                 }
+                 stage('Windows Threading') {
+                    agent { label 'windows' }
+                    steps {
+                        deleteDirWin()
+                        unstash 'MathSetup'
+                        bat "echo CXX=${env.CXX} -Werror > make/local"
+                        bat "echo CXXFLAGS+=-DSTAN_THREADS >> make/local"
+                        runTestsWin("test/unit -f thread")
+                        runTestsWin("test/unit -f map_rect")
+                    }
+                }
+            }
+        }
+        stage('Always-run tests part 2') {
+            parallel {
+                stage('Full unit with GPU') {
                     agent { label "gpu" }
                     steps {
                         deleteDir()
@@ -168,23 +195,10 @@ pipeline {
                         sh "echo STAN_OPENCL=true>> make/local"
                         sh "echo OPENCL_PLATFORM_ID=0>> make/local"
                         sh "echo OPENCL_DEVICE_ID=${OPENCL_DEVICE_ID}>> make/local"
-                        runTests("test/unit/math/opencl")
+                        runTests("test/unit")
                     }
                     post { always { retry(3) { deleteDir() } } }
                 }
-                stage('Windows Headers & Unit') {
-                    agent { label 'windows' }
-                    steps {
-                        deleteDirWin()
-                        unstash 'MathSetup'
-                        bat "make -j${env.PARALLEL} test-headers"
-                        runTestsWin("test/unit")
-                    }
-                }
-            }
-        }
-        stage('Always-run tests part 2') {
-            parallel {
                 stage('Distribution tests') {
                     agent { label "distribution-tests" }
                     steps {
@@ -212,44 +226,18 @@ pipeline {
                             }
                     }
                 }
-                stage('Threading tests') {
-                    agent any
-                    steps {
-                        deleteDir()
-                        unstash 'MathSetup'
-                        sh "echo CXX=${env.CXX} -Werror > make/local"
-                        sh "echo CPPFLAGS+=-DSTAN_THREADS >> make/local"
-                        runTests("test/unit -f thread")
-                        sh "find . -name *_test.xml | xargs rm"
-                        runTests("test/unit -f map_rect")
-                    }
-                    post { always { retry(3) { deleteDir() } } }
-                }
             }
         }
         stage('Additional merge tests') {
             when { anyOf { branch 'develop'; branch 'master' } }
             parallel {
-                stage('Unit with GPU') {
-                    agent { label "gelman-group-mac" }
-                    steps {
-                        deleteDir()
-                        unstash 'MathSetup'
-                        sh "echo CXX=${env.CXX} -Werror > make/local"
-                        sh "echo STAN_OPENCL=true>> make/local"
-                        sh "echo OPENCL_PLATFORM_ID=0>> make/local"
-                        sh "echo OPENCL_DEVICE_ID=1>> make/local"
-                        runTests("test/unit")
-                    }
-                    post { always { retry(3) { deleteDir() } } }
-                }
                 stage('Linux Unit with Threading') {
                     agent { label 'linux' }
                     steps {
                         deleteDir()
                         unstash 'MathSetup'
                         sh "echo CXX=${GCC} >> make/local"
-                        sh "echo CPPFLAGS=-DSTAN_THREADS >> make/local"
+                        sh "echo CXXFLAGS=-DSTAN_THREADS >> make/local"
                         runTests("test/unit")
                     }
                     post { always { retry(3) { deleteDir() } } }

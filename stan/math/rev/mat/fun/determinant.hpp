@@ -11,7 +11,7 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 template <int R, int C>
 class determinant_vari : public vari {
   int rows_;
@@ -24,10 +24,10 @@ class determinant_vari : public vari {
       : vari(determinant_vari_calc(A)),
         rows_(A.rows()),
         cols_(A.cols()),
-        A_(reinterpret_cast<double*>(ChainableStack::instance().memalloc_.alloc(
+        A_(reinterpret_cast<double*>(ChainableStack::instance_->memalloc_.alloc(
             sizeof(double) * A.rows() * A.cols()))),
         adjARef_(
-            reinterpret_cast<vari**>(ChainableStack::instance().memalloc_.alloc(
+            reinterpret_cast<vari**>(ChainableStack::instance_->memalloc_.alloc(
                 sizeof(vari*) * A.rows() * A.cols()))) {
     size_t pos = 0;
     for (size_type j = 0; j < cols_; j++) {
@@ -58,12 +58,12 @@ class determinant_vari : public vari {
     }
   }
 };
-}  // namespace
+}  // namespace internal
 
 template <int R, int C>
 inline var determinant(const Eigen::Matrix<var, R, C>& m) {
   check_square("determinant", "m", m);
-  return var(new determinant_vari<R, C>(m));
+  return var(new internal::determinant_vari<R, C>(m));
 }
 
 }  // namespace math

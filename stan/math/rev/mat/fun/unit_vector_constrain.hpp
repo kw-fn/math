@@ -13,7 +13,7 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 class unit_vector_elt_vari : public vari {
  private:
   vari** y_;
@@ -41,7 +41,7 @@ class unit_vector_elt_vari : public vari {
     }
   }
 };
-}  // namespace
+}  // namespace internal
 
 /**
  * Return the unit length vector corresponding to the free vector y.
@@ -58,7 +58,7 @@ Eigen::Matrix<var, R, C> unit_vector_constrain(
   check_nonzero_size("unit_vector", "y", y);
 
   vari** y_vi_array = reinterpret_cast<vari**>(
-      ChainableStack::instance().memalloc_.alloc(sizeof(vari*) * y.size()));
+      ChainableStack::instance_->memalloc_.alloc(sizeof(vari*) * y.size()));
   for (int i = 0; i < y.size(); ++i)
     y_vi_array[i] = y.coeff(i).vi_;
 
@@ -71,15 +71,15 @@ Eigen::Matrix<var, R, C> unit_vector_constrain(
   Eigen::VectorXd unit_vector_d = y_d / norm;
 
   double* unit_vector_y_d_array = reinterpret_cast<double*>(
-      ChainableStack::instance().memalloc_.alloc(sizeof(double) * y_d.size()));
+      ChainableStack::instance_->memalloc_.alloc(sizeof(double) * y_d.size()));
   for (int i = 0; i < y_d.size(); ++i)
     unit_vector_y_d_array[i] = unit_vector_d.coeff(i);
 
   Eigen::Matrix<var, R, C> unit_vector_y(y.size());
   for (int k = 0; k < y.size(); ++k)
-    unit_vector_y.coeffRef(k) = var(
-        new unit_vector_elt_vari(unit_vector_d[k], y_vi_array,
-                                 unit_vector_y_d_array, y.size(), k, norm));
+    unit_vector_y.coeffRef(k) = var(new internal::unit_vector_elt_vari(
+        unit_vector_d[k], y_vi_array, unit_vector_y_d_array, y.size(), k,
+        norm));
   return unit_vector_y;
 }
 

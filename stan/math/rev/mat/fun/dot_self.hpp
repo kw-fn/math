@@ -11,7 +11,7 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 class dot_self_vari : public vari {
  protected:
   vari** v_;
@@ -24,7 +24,7 @@ class dot_self_vari : public vari {
   explicit dot_self_vari(const Eigen::DenseBase<Derived>& v)
       : vari(var_dot_self(v)), size_(v.size()) {
     v_ = reinterpret_cast<vari**>(
-        ChainableStack::instance().memalloc_.alloc(size_ * sizeof(vari*)));
+        ChainableStack::instance_->memalloc_.alloc(size_ * sizeof(vari*)));
     for (size_t i = 0; i < size_; i++)
       v_[i] = v[i].vi_;
   }
@@ -32,7 +32,7 @@ class dot_self_vari : public vari {
   explicit dot_self_vari(const Eigen::Matrix<var, R, C>& v)
       : vari(var_dot_self(v)), size_(v.size()) {
     v_ = reinterpret_cast<vari**>(
-        ChainableStack::instance().memalloc_.alloc(size_ * sizeof(vari*)));
+        ChainableStack::instance_->memalloc_.alloc(size_ * sizeof(vari*)));
     for (size_t i = 0; i < size_; ++i)
       v_[i] = v(i).vi_;
   }
@@ -62,7 +62,7 @@ class dot_self_vari : public vari {
       v_[i]->adj_ += adj_ * 2.0 * v_[i]->val_;
   }
 };
-}  // namespace
+}  // namespace internal
 /**
  * Returns the dot product of a vector with itself.
  *
@@ -76,7 +76,7 @@ class dot_self_vari : public vari {
 template <int R, int C>
 inline var dot_self(const Eigen::Matrix<var, R, C>& v) {
   check_vector("dot_self", "v", v);
-  return var(new dot_self_vari(v));
+  return var(new internal::dot_self_vari(v));
 }
 
 }  // namespace math

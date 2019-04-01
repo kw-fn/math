@@ -11,7 +11,7 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 class simplex_constrain_op {
   int N_;
   double* diag_;  // diagonal of the Jacobian of the operator
@@ -36,8 +36,8 @@ class simplex_constrain_op {
   Eigen::VectorXd operator()(const std::array<bool, size>& needs_adj,
                              const Eigen::VectorXd& y) {
     N_ = y.size();
-    diag_ = ChainableStack::instance().memalloc_.alloc_array<double>(N_);
-    z_ = ChainableStack::instance().memalloc_.alloc_array<double>(N_);
+    diag_ = ChainableStack::instance_->memalloc_.alloc_array<double>(N_);
+    z_ = ChainableStack::instance_->memalloc_.alloc_array<double>(N_);
 
     Eigen::Matrix<double, Eigen::Dynamic, 1> x(N_ + 1);
     double stick_len(1.0);
@@ -79,7 +79,7 @@ class simplex_constrain_op {
     return std::make_tuple(adj_times_jac);
   }
 };
-}  // namespace
+}  // namespace internal
 
 /**
  * Return the simplex corresponding to the specified free vector.
@@ -94,7 +94,7 @@ class simplex_constrain_op {
  */
 inline Eigen::Matrix<var, Eigen::Dynamic, 1> simplex_constrain(
     const Eigen::Matrix<var, Eigen::Dynamic, 1>& y) {
-  return adj_jac_apply<simplex_constrain_op>(y);
+  return adj_jac_apply<internal::simplex_constrain_op>(y);
 }
 
 }  // namespace math

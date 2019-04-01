@@ -11,10 +11,10 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 
 inline var calc_variance(size_t size, const var* dtrs) {
-  vari** varis = ChainableStack::instance().memalloc_.alloc_array<vari*>(size);
+  vari** varis = ChainableStack::instance_->memalloc_.alloc_array<vari*>(size);
   for (size_t i = 0; i < size; ++i)
     varis[i] = dtrs[i].vi_;
   double sum = 0.0;
@@ -25,7 +25,7 @@ inline var calc_variance(size_t size, const var* dtrs) {
   double reciprocal_size_m1 = 1.0 / (size - 1);
   double two_over_size_m1 = 2.0 * reciprocal_size_m1;
   double* partials
-      = ChainableStack::instance().memalloc_.alloc_array<double>(size);
+      = ChainableStack::instance_->memalloc_.alloc_array<double>(size);
   for (size_t i = 0; i < size; ++i) {
     double diff = dtrs[i].vi_->val_ - mean;
     sum_of_squares += diff * diff;
@@ -35,7 +35,7 @@ inline var calc_variance(size_t size, const var* dtrs) {
   return var(new stored_gradient_vari(variance, size, varis, partials));
 }
 
-}  // namespace
+}  // namespace internal
 
 /**
  * Return the sample variance of the specified standard
@@ -48,7 +48,7 @@ inline var variance(const std::vector<var>& v) {
   check_nonzero_size("variance", "v", v);
   if (v.size() == 1)
     return 0;
-  return calc_variance(v.size(), &v[0]);
+  return internal::calc_variance(v.size(), &v[0]);
 }
 
 /*
@@ -66,7 +66,7 @@ var variance(const Eigen::Matrix<var, R, C>& m) {
   check_nonzero_size("variance", "m", m);
   if (m.size() == 1)
     return 0;
-  return calc_variance(m.size(), &m(0));
+  return internal::calc_variance(m.size(), &m(0));
 }
 
 }  // namespace math

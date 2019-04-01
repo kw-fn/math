@@ -10,7 +10,7 @@
 namespace stan {
 namespace math {
 
-namespace {
+namespace internal {
 class ordered_constrain_op {
   int N_;
   double* exp_x_;
@@ -36,7 +36,7 @@ class ordered_constrain_op {
     if (N_ == 0)
       return y;
 
-    exp_x_ = ChainableStack::instance().memalloc_.alloc_array<double>(N_ - 1);
+    exp_x_ = ChainableStack::instance_->memalloc_.alloc_array<double>(N_ - 1);
 
     y[0] = x[0];
     for (int n = 1; n < N_; ++n) {
@@ -73,7 +73,7 @@ class ordered_constrain_op {
     return std::make_tuple(adj_times_jac);
   }
 };
-}  // namespace
+}  // namespace internal
 
 /**
  * Return an increasing ordered vector derived from the specified
@@ -85,7 +85,7 @@ class ordered_constrain_op {
  */
 inline Eigen::Matrix<var, Eigen::Dynamic, 1> ordered_constrain(
     const Eigen::Matrix<var, Eigen::Dynamic, 1>& x) {
-  return adj_jac_apply<ordered_constrain_op>(x);
+  return adj_jac_apply<internal::ordered_constrain_op>(x);
 }
 
 }  // namespace math
