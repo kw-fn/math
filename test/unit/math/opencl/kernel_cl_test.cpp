@@ -1,24 +1,19 @@
 #ifdef STAN_OPENCL
 
-#include <stan/math/prim/mat.hpp>
-#include <stan/math/opencl/opencl.hpp>
+#include <stan/math/prim.hpp>
+#include <stan/math/opencl/prim.hpp>
+#include <test/unit/util.hpp>
 #include <gtest/gtest.h>
 #include <algorithm>
 
-#define EXPECT_MATRIX_NEAR(A, B, DELTA) \
-  for (int i = 0; i < A.size(); i++)    \
-    EXPECT_NEAR(A(i), B(i), DELTA);
-
 TEST(MathGpu, make_kernel) {
-  stan::math::matrix_d m0(3, 3);
-  stan::math::matrix_d m0_dst(3, 3);
-  m0 << 1, 2, 3, 4, 5, 6, 7, 8, 9;
-  stan::math::matrix_cl<double> m00(m0);
+  stan::math::matrix_d m(3, 3);
 
-  stan::math::matrix_cl<double> m00_dst(m0.cols(), m0.rows());
-  stan::math::opencl_kernels::transpose(cl::NDRange(m00.rows(), m00.cols()),
-                                        m00_dst, m00, m00.rows(), m00.cols());
-  m0_dst = stan::math::from_matrix_cl(m00_dst);
+  stan::math::matrix_cl<double> m_cl(m.cols(), m.rows());
+  stan::math::opencl_kernels::fill_strict_tri(
+      cl::NDRange(m_cl.rows(), m_cl.cols()), m_cl, 0, m_cl.rows(), m_cl.cols(),
+      stan::math::matrix_cl_view::Entire);
+  m = stan::math::from_matrix_cl(m_cl);
 }
 
 TEST(MathGpu, write_after_write) {
@@ -28,8 +23,8 @@ TEST(MathGpu, write_after_write) {
     matrix_cl<double> m_cl(3, 3);
 
     for (int i = 0; i < 4; i++) {
-      stan::math::opencl_kernels::fill(cl::NDRange(3, 3), m_cl, i, 3, 3,
-                                       stan::math::matrix_cl_view::Entire);
+      stan::math::opencl_kernels::fill_strict_tri(
+          cl::NDRange(3, 3), m_cl, i, 3, 3, stan::math::matrix_cl_view::Entire);
     }
 
     stan::math::matrix_d res = stan::math::from_matrix_cl(m_cl);
@@ -45,8 +40,8 @@ TEST(MathGpu, read_after_write_and_write_after_read) {
   matrix_cl<double> m_cl(3, 3);
   matrix_cl<double> ms_cl[1000];
   for (int j = 0; j < 1000; j++) {
-    stan::math::opencl_kernels::fill(cl::NDRange(3, 3), m_cl, j, 3, 3,
-                                     stan::math::matrix_cl_view::Entire);
+    stan::math::opencl_kernels::fill_strict_tri(
+        cl::NDRange(3, 3), m_cl, j, 3, 3, stan::math::matrix_cl_view::Entire);
 
     ms_cl[j] = m_cl;
   }

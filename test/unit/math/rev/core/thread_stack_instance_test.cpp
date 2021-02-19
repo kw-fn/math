@@ -72,6 +72,7 @@ TEST(thread_stack_instance, repeated_initialize) {
                 ==
 #endif
                 main_ad_stack);
+    delete thread_instance_ptr;
   };
   std::thread other_work(thread_tester_with_refresh);
 
@@ -84,19 +85,23 @@ TEST(thread_stack_instance, child_instances) {
   // thread will be different at initialization (if STAN_THREADS is
   // set)
   stan::math::var a = 1;
+  stan::math::var b = a * a;
 
   ChainableStack::AutodiffStackStorage* main_ad_stack
       = ChainableStack::instance_;
 
   auto thread_tester = [&]() -> void {
     ChainableStack thread_instance;
-    EXPECT_TRUE(main_ad_stack->var_stack_.size()
+    EXPECT_TRUE(
+        main_ad_stack->var_stack_.size()
+            + stan::math::ChainableStack::instance_->var_nochain_stack_.size()
 #ifdef STAN_THREADS
-                >
+        >
 #else
-                ==
+        ==
 #endif
-                ChainableStack::instance_->var_stack_.size());
+        ChainableStack::instance_->var_stack_.size()
+            + stan::math::ChainableStack::instance_->var_nochain_stack_.size());
   };
 
   std::thread other_work(thread_tester);

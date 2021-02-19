@@ -17,7 +17,7 @@ static const std::string categorical_logit_glm_kernel_code = STRINGIFY(
      * with categorical distribution and logit (softmax) link function.
      *
      * Must be run with at least N threads and local size equal to LOCAL_SIZE_.
-     * @param[out] logp_global partially summed log probabiltiy (1 value per
+     * @param[out] logp_global partially summed log probability (1 value per
      * work group)
      * @param[out] exp_lin_global exponentiation of sum of alpha and matrix
      * product of x and beta
@@ -115,7 +115,7 @@ static const std::string categorical_logit_glm_kernel_code = STRINGIFY(
               barrier(CLK_LOCAL_MEM_FENCE);
             }
             if (lid == 0) {
-              alpha_derivative[i * ngroups + wg_id] = local_storage[0];
+              alpha_derivative[i + wg_id * N_classes] = local_storage[0];
             }
             barrier(CLK_LOCAL_MEM_FENCE);
           }

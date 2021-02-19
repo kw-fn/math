@@ -3,6 +3,7 @@
 
 #include <test/unit/math/util.hpp>
 #include <stan/math.hpp>
+#include <complex>
 #include <string>
 #include <vector>
 
@@ -12,7 +13,7 @@ namespace test {
 /**
  * A class to store a sequence of values which can be deserialized
  * back into structured objects such as scalars, vectors, and
- * matrixes.
+ * matrices.
  *
  * @tparam T type of scalars
  */
@@ -59,9 +60,27 @@ struct deserializer {
    * @param x pattern argument to determine result shape and size
    * @return deserialized value with shape and size matching argument
    */
-  template <typename U>
+  template <typename U, require_stan_scalar_t<U>* = nullptr,
+            require_not_complex_t<U>* = nullptr>
   T read(const U& x) {
     return vals_[position_++];
+  }
+
+  /**
+   * Read a complex number conforming to the shape of the specified
+   * argument. The specified argument is only used for its
+   * shape---there is no relationship between the value type of the
+   * argument and the type of the result.
+   *
+   * @tparam U type of pattern value type
+   * @param x pattern argument to determine result shape
+   * @return deserialized value with shape and size matching argument
+   */
+  template <typename U>
+  std::complex<T> read(const std::complex<U>& x) {
+    T re = read(x.real());
+    T im = read(x.imag());
+    return {re, im};
   }
 
   /**
@@ -74,10 +93,30 @@ struct deserializer {
    * @param x pattern argument to determine result shape and size
    * @return deserialized value with shape and size matching argument
    */
-  template <typename U>
-  typename stan::math::promote_scalar_type<T, std::vector<U>>::type read(
-      const std::vector<U>& x) {
-    typename stan::math::promote_scalar_type<T, std::vector<U>>::type y;
+  template <typename U, require_std_vector_t<U>* = nullptr,
+            require_not_st_complex<U>* = nullptr>
+  typename stan::math::promote_scalar_type<T, U>::type read(const U& x) {
+    typename stan::math::promote_scalar_type<T, U>::type y;
+    y.reserve(x.size());
+    for (size_t i = 0; i < x.size(); ++i)
+      y.push_back(read(x[i]));
+    return y;
+  }
+
+  /**
+   * Read a standard vector of std::complex variables conforming to the
+   * shape of the specified argument, here a standard vector. The specified
+   * argument is only used for its shape---there is no relationship between
+   * the type of argument and type of result.
+   *
+   * @tparam U type of pattern sequence elements
+   * @param x pattern argument to determine result shape and size
+   * @return deserialized value with shape and size matching argument
+   */
+  template <typename U, require_std_vector_st<is_complex, U>* = nullptr>
+  typename stan::math::promote_scalar_type<std::complex<T>, U>::type read(
+      const U& x) {
+    typename stan::math::promote_scalar_type<std::complex<T>, U>::type y;
     y.reserve(x.size());
     for (size_t i = 0; i < x.size(); ++i)
       y.push_back(read(x[i]));
@@ -99,14 +138,41 @@ struct deserializer {
   template <typename U, int R, int C>
   Eigen::Matrix<T, R, C> read(const Eigen::Matrix<U, R, C>& x) {
     Eigen::Matrix<T, R, C> y(x.rows(), x.cols());
-    for (int i = 0; i < x.size(); ++i)
-      y(i) = read(x(i));
+    for (int j = 0; j < x.cols(); ++j) {
+      for (int i = 0; i < x.rows(); ++i) {
+        y(i + j * x.rows()) = read(x(i, j));
+      }
+    }
+    return y;
+  }
+
+  /**
+   * Read a standard vector of std::complex variables conforming to the
+   * shape of the specified argument, here an Eigen matrix, vector, or
+   * row vector. The specified argument is only used for its shape---there
+   * is no relationship between the type of argument and type of result.
+   *
+   * @tparam U type of pattern scalar
+   * @tparam R row specification for Eigen container
+   * @tparam C column specification for Eigen container
+   * @param x pattern argument to determine result shape and size
+   * @return deserialized value with shape and size matching argument
+   */
+  template <typename U, int R, int C>
+  Eigen::Matrix<std::complex<T>, R, C> read(
+      const Eigen::Matrix<std::complex<U>, R, C>& x) {
+    Eigen::Matrix<std::complex<T>, R, C> y(x.rows(), x.cols());
+    for (int j = 0; j < x.cols(); ++j) {
+      for (int i = 0; i < x.rows(); ++i) {
+        y(i + j * x.rows()) = read(x(i, j));
+      }
+    }
     return y;
   }
 };
 
 /**
- * A structure to serialize structures to an internall stored sequence
+ * A structure to serialize structures to an internal stored sequence
  * of scalars.
  *
  * @tparam T underlying scalar type
@@ -134,9 +200,21 @@ struct serializer {
    * @tparam U type of specified scalar; must be assignable to T
    * @param x scalar to serialize
    */
-  template <typename U>
+  template <typename U, require_stan_scalar_t<U>* = nullptr>
   void write(const U& x) {
     vals_.push_back(x);
+  }
+
+  /**
+   * Serialize the specified complex number.
+   *
+   * @tparam U value type of complex number; must be assignable to T
+   * @param x complex number to serialize
+   */
+  template <typename U>
+  void write(const std::complex<U>& x) {
+    write(x.real());
+    write(x.imag());
   }
 
   /**
@@ -159,10 +237,13 @@ struct serializer {
    * @tparam C column specification of Eigen container
    * @param x Eigen container to serialize.
    */
-  template <typename U, int R, int C>
-  void write(const Eigen::Matrix<U, R, C>& x) {
-    for (int i = 0; i < x.size(); ++i)
-      write(x(i));
+  template <typename U, require_eigen_t<U>* = nullptr>
+  void write(const U& x) {
+    for (int j = 0; j < x.cols(); ++j) {
+      for (int i = 0; i < x.rows(); ++i) {
+        write(x.coeff(i, j));
+      }
+    }
   }
 
   /**
@@ -206,6 +287,11 @@ deserializer<T> to_deserializer(const Eigen::Matrix<T, -1, 1>& vals) {
   return deserializer<T>(vals);
 }
 
+template <typename T>
+deserializer<T> to_deserializer(const std::complex<T>& vals) {
+  return to_deserializer(std::vector<T>{vals.real(), vals.imag()});
+}
+
 template <typename U>
 void serialize_helper(serializer<U>& s) {}
 
@@ -239,8 +325,8 @@ std::vector<U> serialize(const Ts... xs) {
  * @return serialized argument
  */
 template <typename T>
-std::vector<typename scalar_type<T>::type> serialize_return(const T& x) {
-  return serialize<typename scalar_type<T>::type>(x);
+std::vector<real_return_t<T>> serialize_return(const T& x) {
+  return serialize<real_return_t<T>>(x);
 }
 
 /**
